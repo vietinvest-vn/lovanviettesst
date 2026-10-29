@@ -29,7 +29,7 @@ if (!process.env.BANK_ID || !process.env.BANK_ACCOUNT || !process.env.BANK_ACCOU
   console.warn("WARNING: Set BANK_ID, BANK_ACCOUNT, and BANK_ACCOUNT_NAME in .env before accepting real orders.");
 }
 
-const dataDir = path.join(__dirname, "data");
+const dataDir = process.env.VERCEL ? "/tmp/lv-data" : path.join(__dirname, "data");
 fs.mkdirSync(dataDir, { recursive: true });
 const db = new Database(path.join(dataDir, "store.sqlite"));
 db.pragma("journal_mode = WAL");
@@ -335,7 +335,10 @@ app.use((err, req, res, next) => {
   res.status(500).json({ error: "Có lỗi máy chủ. Vui lòng thử lại sau." });
 });
 
-app.listen(PORT, () => {
-  console.log(`LV Indicator Pro is running at ${SITE_URL}`);
-  console.log("Admin page: /admin.html");
-});
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`LV Indicator Pro is running at ${SITE_URL}`);
+    console.log("Admin page: /admin.html");
+  });
+}
+module.exports = app;
