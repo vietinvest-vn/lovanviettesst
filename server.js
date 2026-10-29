@@ -135,11 +135,12 @@ function requireAdmin(req, res, next) {
 function sameOriginForWrites(req, res, next) {
   const origin = req.get("origin");
   if (!origin) return res.status(403).json({ error: "Thiếu Origin; yêu cầu bị từ chối." });
-  try {
-    if (new URL(origin).origin !== new URL(SITE_URL).origin) {
-      return res.status(403).json({ error: "Origin không hợp lệ." });
-    }
-  } catch {
+  let originUrl;
+  try { originUrl = new URL(origin); } catch { return res.status(403).json({ error: "Origin không hợp lệ." }); }
+  const allowed = [SITE_URL].concat((process.env.ALLOWED_ORIGINS || "").split(",").map(x => x.trim()).filter(Boolean));
+  const allowedOrigins = allowed.map(o => { try { return new URL(o).origin; } catch { return null; } }).filter(Boolean);
+  if (!allowedOrigins.includes(originUrl.origin)) {
+    console.warn("Origin rejected:", originUrl.origin, "route:", req.path);
     return res.status(403).json({ error: "Origin không hợp lệ." });
   }
   next();
