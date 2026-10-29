@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#080d18">
+  <meta name="description" content="LV Indicator Pro - Premium Trading Indicators & Tools">
+  <title>LV Indicator Pro | Premium Trading Tools</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <header class="header">
+    <a class="logo" href="#home">LV <span>INDICATOR PRO</span></a>
+    <button class="menu-toggle" id="menuToggle" aria-label="Mở menu" aria-expanded="false">☰</button>
+    <nav class="nav" id="nav">
+      <a href="#home">Trang chủ</a>
+      <a href="#products">Sản phẩm</a>
+      <a href="#status">Tra cứu đơn</a>
+      <a href="#contact">Liên hệ</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="hero-content">
+        <div class="eyebrow">PREMIUM TRADING TOOLS</div>
+        <h1>Trade Smarter with <span>LV Pro</span></h1>
+        <p>Khám phá bộ chỉ báo và công cụ phân tích kỹ thuật dành cho trader hiện đại.</p>
+        <a class="btn" href="#products">Khám phá sản phẩm →</a>
+      </div>
+    </section>
+
+    <section class="products section" id="products">
+      <div class="section-heading">
+        <span class="eyebrow">OUR PRODUCTS</span>
+        <h2>Trading <span>Indicators</span></h2>
+        <p>Lựa chọn công cụ phù hợp với phong cách giao dịch của bạn.</p>
+      </div>
+      <div class="product-grid" id="productGrid"></div>
+    </section>
+
+    <section class="section" id="status">
+      <div class="section-heading">
+        <span class="eyebrow">ORDER STATUS</span>
+        <h2>Tra cứu <span>đơn hàng</span></h2>
+      </div>
+      <form id="statusForm" class="stack">
+        <label>Mã đơn hàng <input name="orderId" required></label>
+        <label>Email <input name="email" type="email" required></label>
+        <button class="button" type="submit">Tra cứu</button>
+      </form>
+      <pre id="statusResult" class="notice"></pre>
+    </section>
+
+    <section class="contact section" id="contact">
+      <span class="eyebrow">GET IN TOUCH</span>
+      <h2>Bạn cần hỗ trợ?</h2>
+      <p>Liên hệ với chúng tôi để tìm hiểu về sản phẩm.</p>
+      <a class="btn" href="https://mail.google.com/mail/?view=cm&fs=1&to=lovanviett.vn@gmail.com&su=Ho+tro+LV+Indicator+Pro" target="_blank" rel="noopener">Liên hệ ngay</a>
+      <p class="muted">Email: lovanviett.vn@gmail.com</p>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <a class="logo" href="#home">LV <span>INDICATOR PRO</span></a>
+    <p>© <span id="year"></span> LV Indicator Pro. All rights reserved.</p>
+  </footer>
+
+  <dialog id="checkoutDialog" class="dialog">
+    <button id="closeCheckout" class="dialog-close" type="button" aria-label="Đóng">×</button>
+    <div id="checkoutContent">
+      <span class="eyebrow">LV INDICATOR PRO</span>
+      <h2>Đặt mua sản phẩm</h2>
+      <p id="selectedProduct"></p>
+      <form id="checkoutForm" class="stack">
+        <input type="hidden" name="productId" value="">
+        <label>Họ và tên <input name="name" required autocomplete="name"></label>
+        <label>Email <input name="email" type="email" required autocomplete="email"></label>
+        <label>Số điện thoại <input name="phone" type="tel" required autocomplete="tel"></label>
+        <div id="tvField" hidden>
+          <label>Tên tài khoản TradingView <input name="tradingViewUsername"></label>
+        </div>
+        <p id="checkoutError" class="notice error"></p>
+        <button class="button" type="submit">Tạo đơn hàng</button>
+      </form>
+    </div>
+    <div id="paymentContent" hidden>
+      <span class="eyebrow">THANH TOÁN</span>
+      <h2>Quét QR để chuyển khoản</h2>
+      <p id="paymentSummary"></p>
+      <img id="qrImage" class="qr-image" alt="QR thanh toán">
+      <div class="bank-details">
+        <p>Ngân hàng: <strong id="bankId"></strong></p>
+        <p>Số tài khoản: <strong id="bankAccount"></strong></p>
+        <p>Chủ tài khoản: <strong id="bankName"></strong></p>
+        <p>Số tiền: <strong id="bankAmount"></strong></p>
+        <p>Nội dung chuyển khoản: <strong id="transferCode"></strong></p>
+        <p>Mã đơn hàng: <strong id="orderIdDisplay"></strong></p>
+      </div>
+      <button id="copyTransfer" class="button secondary" type="button">Sao chép mã chuyển khoản</button>
+      <button id="newOrder" class="button" type="button">Đóng</button>
+    </div>
+  </dialog>
+</body>
+</html>

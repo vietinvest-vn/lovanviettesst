@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Quản trị đơn hàng | LV Indicator Pro</title>
+  <link rel="stylesheet" href="/style.css">
+  <script src="/admin.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="/">LV <span>ADMIN</span></a>
+    <nav><a href="/">Xem website</a><button id="logoutButton" class="button secondary" hidden>Đăng xuất</button></nav>
+  </header>
+  <main class="section">
+    <section id="loginPanel" class="panel form-panel">
+      <p class="eyebrow">PRIVATE ADMIN</p><h1>Đăng nhập quản trị</h1>
+      <p class="muted">Chỉ chủ cửa hàng được truy cập trang này.</p>
+      <form id="loginForm" class="stack">
+        <label>Tên đăng nhập<input name="username" autocomplete="username" required></label>
+        <label>Mật khẩu<input name="password" type="password" autocomplete="current-password" required></label>
+        <button class="button" type="submit">Đăng nhập</button>
+        <div id="loginMessage" class="notice error" aria-live="polite"></div>
+      </form>
+    </section>
+    <section id="ordersPanel" hidden>
+      <p class="eyebrow">ORDER MANAGEMENT</p><h1>Quản lý đơn hàng</h1>
+      <p class="muted">Đối chiếu giao dịch trong ngân hàng trước khi xác nhận thanh toán. Không xác nhận chỉ dựa vào ảnh chụp của khách.</p>
+      <button id="refreshButton" class="button secondary" type="button">Làm mới danh sách</button>
+      <div id="ordersMessage" class="notice" aria-live="polite"></div>
+      <div id="ordersList" class="admin-orders"></div>
+    </section>
+  </main>
+</body>
+</html>

@@ -1,0 +1,158 @@
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#080d18">
+  <meta name="description" content="LV Indicator Pro - Premium Trading Indicators & Tools">
+  <title>LV Indicator Pro | Premium Trading Tools</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+
+  <header class="header">
+    <a class="logo" href="#home">LV <span>INDICATOR PRO</span></a>
+
+    <button class="menu-toggle" id="menuToggle"
+            aria-label="Mở menu" aria-expanded="false">
+      ☰
+    </button>
+
+    <nav class="nav" id="nav">
+      <a href="#home">Trang chủ</a>
+      <a href="#products">Sản phẩm</a>
+      <a href="#about">Giới thiệu</a>
+      <a href="#contact">Liên hệ</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="hero-content">
+        <div class="eyebrow">PREMIUM TRADING TOOLS</div>
+
+        <h1>Trade Smarter with <span>LV Pro</span></h1>
+
+        <p>
+          Khám phá bộ chỉ báo và công cụ phân tích kỹ thuật
+          được thiết kế dành cho trader hiện đại.
+        </p>
+
+        <a class="btn" href="#products">Khám phá sản phẩm →</a>
+
+        <div class="hero-stats">
+          <div><strong>PRO</strong><small>Công cụ chuyên nghiệp</small></div>
+          <div><strong>MTF</strong><small>Phân tích đa khung thời gian</small></div>
+          <div><strong>24/7</strong><small>Truy cập tài liệu</small></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="products section" id="products">
+      <div class="section-heading">
+        <span class="eyebrow">OUR PRODUCTS</span>
+        <h2>Trading <span>Indicators</span></h2>
+        <p>Lựa chọn công cụ phù hợp với phong cách giao dịch của bạn.</p>
+      </div>
+
+      <div class="product-grid">
+        <article class="card">
+          <div class="product-icon">↗</div>
+          <span class="tag">BEST SELLER</span>
+          <h3>LV Trend Pro</h3>
+          <p>
+            Chỉ báo hỗ trợ nhận diện xu hướng, vùng đảo chiều
+            và các tín hiệu phân tích kỹ thuật.
+          </p>
+          <div class="price">299.000đ <small>/ tháng</small></div>
+          <button class="btn buy-btn" data-product="LV Trend Pro">
+            Xem sản phẩm
+          </button>
+        </article>
+
+        <article class="card">
+          <div class="product-icon">⌁</div>
+          <span class="tag">PRO INDICATOR</span>
+          <h3>LV Smart Signal</h3>
+          <p>
+            Công cụ tham khảo tín hiệu mua bán, hỗ trợ
+            xây dựng kế hoạch giao dịch.
+          </p>
+          <div class="price">399.000đ <small>/ tháng</small></div>
+          <button class="btn buy-btn" data-product="LV Smart Signal">
+            Xem sản phẩm
+          </button>
+        </article>
+
+        <article class="card">
+          <div class="product-icon">◈</div>
+          <span class="tag">ADVANCED TOOL</span>
+          <h3>LV Market Structure</h3>
+          <p>
+            Hỗ trợ quan sát cấu trúc thị trường và các vùng
+            giá quan trọng trên biểu đồ.
+          </p>
+          <div class="price">499.000đ <small>/ tháng</small></div>
+          <button class="btn buy-btn" data-product="LV Market Structure">
+            Xem sản phẩm
+          </button>
+        </article>
+
+        <article class="card">
+          <div class="product-icon">◈</div>
+          <span class="tag">ADVANCED TOOL</span>
+          <h3>LV Advanced Pro</h3>
+          <p>
+            Hỗ trợ quan sát cấu trúc thị trường và các vùng
+            giá quan trọng trên biểu đồ.
+          </p>
+          <div class="price">1.000.000đ <small>/ tháng</small></div>
+          <button class="btn buy-btn" data-product="LV Advanced Pro">
+            Xem sản phẩm
+          </button>
+        </article>
+      </div>
+    </section>
+
+    <section class="about section" id="about">
+      <span class="eyebrow">WHY LV INDICATOR PRO</span>
+      <h2>Công cụ tốt hơn. <span>Kế hoạch rõ ràng hơn.</span></h2>
+      <p>
+        Tập trung vào trải nghiệm sử dụng, tài liệu hướng dẫn
+        và các công cụ hỗ trợ phân tích thị trường.
+      </p>
+    </section>
+
+    <section class="contact section" id="contact">
+      <span class="eyebrow">GET IN TOUCH</span>
+      <h2>Bạn cần hỗ trợ?</h2>
+      <p>Liên hệ với chúng tôi để tìm hiểu về sản phẩm.</p>
+      <a class="btn" href="mailto:your-email@example.com">
+        Liên hệ ngay
+      </a>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <a class="logo" href="#home">LV <span>INDICATOR PRO</span></a>
+    <p>© <span id="year"></span> LV Indicator Pro. All rights reserved.</p>
+    <small>
+      Công cụ chỉ nhằm mục đích hỗ trợ phân tích, không đảm bảo lợi nhuận.
+    </small>
+  </footer>
+
+  <dialog id="productDialog" class="product-dialog">
+    <button id="closeDialog" class="close-dialog" aria-label="Đóng">×</button>
+    <span class="eyebrow">LV INDICATOR PRO</span>
+    <h2 id="dialogTitle">Sản phẩm</h2>
+    <p>
+      Bạn quan tâm đến sản phẩm này. Vui lòng liên hệ để nhận
+      thông tin giá, hướng dẫn sử dụng và điều kiện cấp quyền.
+    </p>
+    <a class="btn" href="mailto:lovanviett.vn@gmail.com">Liên hệ mua hàng</a>
+  </dialog>
+
+</body>
+</html>
