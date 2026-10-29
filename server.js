@@ -171,6 +171,72 @@ function makeQrUrl(amount, transferCode) {
   return `https://img.vietqr.io/image/${bank}-${account}-compact2.png?${params.toString()}`;
 }
 
+
+const ADMIN_COOKIE="lv_admin";
+function signAdminToken(username){
+  const payload=Buffer.from(JSON.stringify({u:username,exp:Date.now()+1000*60*60*8})).toString("base64url");
+  const sig=crypto.createHmac("sha256",process.env.SESSION_SECRET).update(payload).digest("base64url");
+  return payload+"."+sig;
+}
+function verifyAdminToken(token){
+  if(!token||typeof token!=="string")return null;
+  const parts=token.split(".");
+  if(parts.length!==2)return null;
+  const sig=crypto.createHmac("sha256",process.env.SESSION_SECRET).update(parts[0]).digest("base64url");
+  if(!crypto.timingSafeEqual(Buffer.from(sig),Buffer.from(parts[1])))return null;
+  try{
+    const data=JSON.parse(Buffer.from(parts[0],"base64url").toString());
+    if(data.exp<Date.now())return null;
+    return data.u;
+  }catch{return null;}
+}
+function getAdminCookie(req){
+  const raw=req.headers.cookie||"";
+  const m=raw.match(new RegExp("(?:^|; )"+ADMIN_COOKIE+"=([^;]+)"));
+  return m?decodeURIComponent(m[1]):null;
+}
+function requireAdmin(req,res,next){
+  const user=verifyAdminToken(getAdminCookie(req));
+  if(!user||user!==process.env.ADMIN_USERNAME){
+    return res.status(401).json({error:"Vui lòng đăng nhập trang quản trị."});
+  }
+  req.adminUser=user;
+  next();
+}
+
+
+const ADMIN_COOKIE="lv_admin";
+function signAdminToken(username){
+  const payload=Buffer.from(JSON.stringify({u:username,exp:Date.now()+1000*60*60*8})).toString("base64url");
+  const sig=crypto.createHmac("sha256",process.env.SESSION_SECRET).update(payload).digest("base64url");
+  return payload+"."+sig;
+}
+function verifyAdminToken(token){
+  if(!token||typeof token!=="string")return null;
+  const parts=token.split(".");
+  if(parts.length!==2)return null;
+  const sig=crypto.createHmac("sha256",process.env.SESSION_SECRET).update(parts[0]).digest("base64url");
+  if(!crypto.timingSafeEqual(Buffer.from(sig),Buffer.from(parts[1])))return null;
+  try{
+    const data=JSON.parse(Buffer.from(parts[0],"base64url").toString());
+    if(data.exp<Date.now())return null;
+    return data.u;
+  }catch{return null;}
+}
+function getAdminCookie(req){
+  const raw=req.headers.cookie||"";
+  const m=raw.match(new RegExp("(?:^|; )"+ADMIN_COOKIE+"=([^;]+)"));
+  return m?decodeURIComponent(m[1]):null;
+}
+function requireAdmin(req,res,next){
+  const user=verifyAdminToken(getAdminCookie(req));
+  if(!user||user!==process.env.ADMIN_USERNAME){
+    return res.status(401).json({error:"Vui lòng đăng nhập trang quản trị."});
+  }
+  req.adminUser=user;
+  next();
+}
+
 app.get("/api/products", (req, res) => {
   res.json(PRODUCTS.map(({ id, name, type, price, billing, description }) =>
     ({ id, name, type, price, billing, description })
@@ -250,31 +316,18 @@ app.post("/api/admin/login", loginLimiter, sameOriginForWrites, async (req, res)
     return res.status(401).json({ error: "Tên đăng nhập hoặc mật khẩu không đúng." });
   }
 
-  req.session.regenerate(err => {
-    if (err) return res.status(500).json({ error: "Không tạo được phiên đăng nhập." });
-    req.session.isAdmin = true;
-    req.session.username = expectedUser;
-    req.session.save(saveErr => {
-      if (saveErr) return res.status(500).json({ error: "Không lưu được phiên đăng nhập." });
-      res.json({ ok: true, username: expectedUser });
-    });
-  });
+  const token=signAdminToken(expectedUser);
+  res.cookie(ADMIN_COOKIE,token,{httpOnly:true,secure:IS_PROD,sameSite:"strict",maxAge:1000*60*60*8,path:"/"});
+  res.json({ok:true,username:expectedUser});
 });
 
 app.post("/api/admin/logout", requireAdmin, sameOriginForWrites, (req, res) => {
-  req.session.destroy(err => {
-    if (err) return res.status(500).json({ error: "Không thể đăng xuất." });
-    res.clearCookie("lv_admin_session", {
-      httpOnly: true,
-      secure: IS_PROD,
-      sameSite: "strict"
-    });
-    res.json({ ok: true });
-  });
+  res.clearCookie(ADMIN_COOKIE,{httpOnly:true,secure:IS_PROD,sameSite:"strict",path:"/"});
+  res.json({ok:true});
 });
 
 app.get("/api/admin/me", requireAdmin, (req, res) => {
-  res.json({ ok: true, username: req.session.username });
+  res.json({ ok: true, username: req.adminUser });
 });
 
 app.get("/api/admin/orders", requireAdmin, (req, res) => {
