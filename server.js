@@ -137,7 +137,7 @@ function sameOriginForWrites(req, res, next) {
   if (!origin) return res.status(403).json({ error: "Thiếu Origin; yêu cầu bị từ chối." });
   let originUrl;
   try { originUrl = new URL(origin); } catch { return res.status(403).json({ error: "Origin không hợp lệ." }); }
-  const allowed = [SITE_URL].concat((process.env.ALLOWED_ORIGINS || "").split(",").map(x => x.trim()).filter(Boolean));
+  const allowed = [SITE_URL, "https://lovanviettest.vercel.app"].concat((process.env.ALLOWED_ORIGINS || "").split(",").map(x => x.trim()).filter(Boolean));
   const allowedOrigins = allowed.map(o => { try { return new URL(o).origin; } catch { return null; } }).filter(Boolean);
   if (!allowedOrigins.includes(originUrl.origin)) {
     console.warn("Origin rejected:", originUrl.origin, "route:", req.path);
